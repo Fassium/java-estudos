@@ -3,14 +3,15 @@ import java.util.List;
 import java.util.UUID;
 
 public class Pedido {
+    private static int ultimoNumero = 0;
     private final UUID id;
     private int numero;
     private Cliente cliente;
     private List<ItemPedido> itens;
 
-    public Pedido(int numero, Cliente cliente) {
+    public Pedido(Cliente cliente) {
         this.id = UUID.randomUUID();
-        this.numero = numero;
+        this.numero = ++ultimoNumero;
         this.cliente = cliente;
         this.itens = new ArrayList<>();
     }
