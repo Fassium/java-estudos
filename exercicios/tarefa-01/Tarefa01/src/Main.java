@@ -12,7 +12,12 @@ public class Main {
         Pedido pedido2 = new Pedido(cliente);
         pedido2.adicionarItem(mouse, 3);
 
-        System.out.println("Pedido " + pedido1.getNumero() + ": " + pedido1.getSubtotal());
-        System.out.println("Pedido " + pedido2.getNumero() + ": " + pedido2.getSubtotal());
+        System.out.println("Pedido " + pedido1.getNumero() + ": " + pedido1.getTotal(10));
+        System.out.println("Pedido " + pedido2.getNumero() + ": " + pedido2.getTotal(20));
+
+        pedido1.imprimir(10);
+        pedido2.imprimir(20);
+
+
     }
 }
