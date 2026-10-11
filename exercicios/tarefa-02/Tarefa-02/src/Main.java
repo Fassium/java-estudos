@@ -1,15 +1,44 @@
 public class Main {
+    static final double SALARIO_MINIMO = 1518.00;
+
     static void main(String[] args) {
-        int x = 10;
-        int z = 10;
+        // 1 e 2: tipos e var
+        var idade = 31;
+        var salario = 4500.50;
+        var inicial = 'T';
+        var empregado = true;
+        var populacao = 215_000_000L;
 
-        int b;
-        int c;
+        System.out.println(idade);
+        System.out.println(salario);
+        System.out.println(inicial);
+        System.out.println(empregado);
+        System.out.println(populacao);
 
-        b = x++;
-        c = ++z;
+        // 3: operadores
+        int a = 17, b = 5;
+        System.out.println(a + b);
+        System.out.println(a - b);
+        System.out.println(a * b);
+        System.out.println(a % b);
 
-        System.out.println(b);
-        System.out.println(c);
+        a += 3;
+        System.out.println(a);
+
+        // 4: ternário
+        String tipo = a % 2 == 0 ? "par" : "ímpar";
+        System.out.println(tipo);
+
+        // 5: cálculo
+        double qtdSalarios = salario / SALARIO_MINIMO;
+        double salarioAnual = salario * 12;
+        System.out.printf("%.2f salários mínimos%n", qtdSalarios);
+        System.out.printf("Salário anual: %.2f%n", salarioAnual);
+
+        // desafio: trocar a e b
+        int temp = a;
+        a = b;
+        b = temp;
+        System.out.println(a + " " + b);
     }
 }
