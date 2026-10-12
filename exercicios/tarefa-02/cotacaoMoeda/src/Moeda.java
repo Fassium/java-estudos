@@ -2,14 +2,14 @@ public class Moeda {
     private static int proximoId = 1;
 
     private final int id;
-    private final String codigo;
+    private final String codigoIso4217;
     private final String nome;
     private final int casasDecimais;
 
-    public Moeda(String codigo, String nome, int casasDecimais) {
+    public Moeda(String codigoIso4217, String nome, int casasDecimais) {
 
-        if (codigo == null || codigo.isBlank()) {
-            throw new IllegalArgumentException("O código da moeda é obrigatório");
+        if (codigoIso4217 == null || !codigoIso4217.matches("[A-Z]{3}")) {
+            throw new IllegalArgumentException("O código ISO 4217 deve ter exatamente 3 letras maiúsculas (ex.: USD)");
         }
 
         if (nome == null || nome.isBlank()) {
@@ -21,7 +21,7 @@ public class Moeda {
         }
 
         this.id = proximoId++;
-        this.codigo = codigo;
+        this.codigoIso4217 = codigoIso4217;
         this.nome = nome;
         this.casasDecimais = casasDecimais;
     }
@@ -30,8 +30,8 @@ public class Moeda {
         return id;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getCodigoIso4217() {
+        return codigoIso4217;
     }
 
     public String getNome() {

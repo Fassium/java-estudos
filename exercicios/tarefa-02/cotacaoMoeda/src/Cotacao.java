@@ -1,45 +1,73 @@
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.time.LocalDateTime;
 
 public class Cotacao {
     private static long proximoId = 1;
 
     private final long id;
-    private final Moeda moeda;
-    private BigDecimal valorCambio;
-    private final LocalDateTime vigencia;
+    private final Moeda moedaOrigem;
+    private final Moeda moedaDestino;
+    private final BigDecimal taxaCambio;
+    private final LocalDateTime vigenciaInicio;
 
-    public Cotacao(Moeda moeda, BigDecimal valorCambio, LocalDateTime vigencia) {
-
-        if (moeda == null) {
-            throw new IllegalArgumentException("A moeda da cotação é obrigatória");
+    public Cotacao(Moeda moedaOrigem, Moeda moedaDestino, BigDecimal taxaCambio, LocalDateTime vigenciaInicio) {
+        if (moedaOrigem == null) {
+            throw new IllegalArgumentException("A moeda de origem da cotação é obrigatória");
         }
-        if (valorCambio == null || valorCambio.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("O valor do câmbio deve ser maior que zero");
+        if (moedaDestino == null) {
+            throw new IllegalArgumentException("A moeda de destino da cotação é obrigatória");
         }
-        if (vigencia == null) {
-            throw new IllegalArgumentException("A vigência da cotação é obrigatória");
+        if (moedaOrigem.getId() == moedaDestino.getId()) {
+            throw new IllegalArgumentException("A moeda de origem e a de destino devem ser diferentes");
+        }
+        if (taxaCambio == null || taxaCambio.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("A taxa de câmbio deve ser maior que zero");
+        }
+        if (vigenciaInicio == null) {
+            throw new IllegalArgumentException("O início da vigência da cotação é obrigatório");
         }
 
         this.id = proximoId++;
-        this.moeda = moeda;
-        this.valorCambio = valorCambio;
-        this.vigencia = vigencia;
+        this.moedaOrigem = moedaOrigem;
+        this.moedaDestino = moedaDestino;
+        this.taxaCambio = taxaCambio;
+        this.vigenciaInicio = vigenciaInicio;
     }
 
     public long getId() {
         return id;
     }
 
-    public Moeda getMoeda() {
-        return moeda;
+    public Moeda getMoedaOrigem() {
+        return moedaOrigem;
     }
 
-    public BigDecimal getValorCambio() {
-        return valorCambio;
+    public Moeda getMoedaDestino() {
+        return moedaDestino;
     }
 
-    public LocalDateTime getVigencia() {
-        return vigencia;
+    public BigDecimal getTaxaCambio() {
+        return taxaCambio;
+    }
+
+    public LocalDateTime getVigenciaInicio() {
+        return vigenciaInicio;
+    }
+
+    public BigDecimal aplicar(BigDecimal valor) {
+        if (valor == null) {
+            throw new IllegalArgumentException("O valor a converter é obrigatório");
+        }
+
+        return valor.multiply(taxaCambio);
+    }
+
+    public BigDecimal aplicarInversa(BigDecimal valor) {
+        if (valor == null) {
+            throw new IllegalArgumentException("O valor a converter é obrigatório");
+        }
+
+        return valor.divide(taxaCambio, MathContext.DECIMAL128);
     }
 }
