@@ -40,5 +40,15 @@ public class Main {
         a = b;
         b = temp;
         System.out.println(a + " " + b);
+
+        double media;
+        media = (10 + 7.0) / 2;
+
+        System.out.println(media);
+
+        double preco = 19.99;
+        int inteiro = (int) preco;
+
+
     }
 }
